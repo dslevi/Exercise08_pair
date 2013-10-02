@@ -45,19 +45,22 @@ def make_text(chains):
 
 def main():
     api = twitter.Api(
-        consumer_key= 'u9EuOAn5q45OAkuZgtcNzw',
-        consumer_secret= '5rRaKL4MCzhjK2g8tEMnfmOH9fOlDRsoPbmEM9mF4', 
-        access_token_key='1925489196-OJornl9NjLsqEmsC50NJSU3q8bPQ3t0w4xS9sI8', 
-        access_token_secret='65bTdQpE51hhcuZxEe3vWTO9nZlpq0NHgKs2Hbe2jA'
+        consumer_key= 'B63jPAyAE2bzaXFVhSytKQ',
+        consumer_secret= 'Lzw9K04zhaN3UYPQvDerHXjPZKQDwbmd5kdZ7c7M0UU', 
+        access_token_key='1928154206-7qOAkCBIRfE0vDkY5ofzRZbMrmsci4pdQDpEhdR', 
+        access_token_secret='GuXtYfE0EXUwxkmqF01MmWqKttgCrz15iLDWgZLpxqI'
         )
     script, textfile = sys.argv
 
     f = open(textfile)
-    text = f.read().replace('"', ' ')
+    text = f.read().replace('"', ' ').replace("-", "")
     f.close()
+    
+    while True:
+        status = api.PostUpdate(make_text(make_chains(text)))
+        if len(status.text) <= 140:
+            break
 
-    status = api.PostUpdate(make_text(make_chains(text)))
     print status.text
-
 if __name__ == "__main__":
     main()

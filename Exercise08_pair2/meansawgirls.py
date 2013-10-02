@@ -22,13 +22,13 @@ def make_text(chains):
 
     list_of_tuples = chains.keys()
     
-    cap_tuples = []
-    for item in list_of_tuples:
-        if ord(item[0][0]) >= ord("A") and ord(item[0][0]) <= ord("Z"):
-            cap_tuples.append(item)
+    # cap_tuples = []
+    # for item in list_of_tuples:
+    #     if ord(item[0][0]) >= ord("A") and ord(item[0][0]) <= ord("Z"):
+    #         cap_tuples.append(item)
 
     #Creates first two words of sentence
-    rand_tuple = cap_tuples[random.randint(0, len(cap_tuples)-1)]
+    rand_tuple = list_of_tuples[random.randint(0, len(list_of_tuples)-1)]
     add_word = chains[rand_tuple][random.randint(0, len(chains[rand_tuple])-1)]
     second_word = rand_tuple[1]
     rand_string = rand_tuple[0] + " " + second_word + " " + add_word
@@ -44,20 +44,27 @@ def make_text(chains):
     return rand_string
 
 def main():
-    api = twitter.Api(
-        consumer_key= 'u9EuOAn5q45OAkuZgtcNzw',
-        consumer_secret= '5rRaKL4MCzhjK2g8tEMnfmOH9fOlDRsoPbmEM9mF4', 
-        access_token_key='1925489196-OJornl9NjLsqEmsC50NJSU3q8bPQ3t0w4xS9sI8', 
-        access_token_secret='65bTdQpE51hhcuZxEe3vWTO9nZlpq0NHgKs2Hbe2jA'
-        )
+    # api = twitter.Api(
+    #     consumer_key= 'RhrXe9gLhQBO41140HA',
+    #     consumer_secret= 'WBmD6NqJEgcC15sKCewEI3zPX2mMpVvtDhK3sSR0sQ', 
+    #     access_token_key='1925137250-wJPM9pnev0zKGKMIVMq7H1scqXzBEK1RX3e9skC', 
+    #     access_token_secret='mKKY2wfQVnFVVYCfMUjmh03dRwH51Ylg0wSS4rzehSU'
+    #     )
     script, textfile = sys.argv
 
     f = open(textfile)
-    text = f.read().replace('"', ' ')
+    text = f.read().replace('"', '')
+    text_lower = text.lower()
     f.close()
+    
+    # while True:
+    #     status = api.PostUpdate(make_text(make_chains(text)))
+    #     if len(status.text) <= 140:
+    #         break
 
-    status = api.PostUpdate(make_text(make_chains(text)))
-    print status.text
+    # print status.text
 
-if __name__ == "__main__":
-    main()
+    print make_text(make_chains(text_lower))
+
+
+main()

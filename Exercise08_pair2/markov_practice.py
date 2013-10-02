@@ -31,7 +31,4 @@ def make_sentence(chain, chain2):
         rand_string += " " + add_word 
         i += 1
 
-
-    #Make last two words
-
     return rand_string
